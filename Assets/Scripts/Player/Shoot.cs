@@ -2,21 +2,15 @@
 
 public class Shoot : MonoBehaviour
 {
-
 	public GameObject balaObject;
 
-	// Use this for initialization
-	void Start ()
-	{
-
-	}
-	
 	// Update is called once per frame
 	void Update ()
-	{
+	{		
 		if (Input.GetMouseButtonDown (0)) {
-			GameObject bala = Instantiate (balaObject, transform.position, transform.rotation);
-			bala.transform.parent = GameObject.Find ("Bullets").transform;
+			GameObject bullet = Instantiate (balaObject, transform.position, Quaternion.identity);
+			bullet.transform.parent = GameObject.Find ("Bullets").transform;
+			bullet.transform.Rotate (new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y - 45, transform.eulerAngles.z));
 		}
 	}
 }
