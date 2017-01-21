@@ -1,0 +1,41 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class Bullet : MonoBehaviour
+{
+
+	public float BulletSpeed = 10f;
+	private bool InstantiateSpeed = true;
+
+	// Use this for initialization
+	void Start ()
+	{
+		
+	}
+	
+	// Update is called once per frame
+	void Update ()
+	{
+		float speed = BulletSpeed * Time.deltaTime;
+		if (InstantiateSpeed) {
+			transform.Translate (new Vector3 (speed, 0, speed), GameObject.Find ("Gun").transform);
+			InstantiateSpeed = false;
+		} else {
+			transform.Translate (new Vector3 (speed, 0, speed), transform);
+		}
+		StartCoroutine (DestroyBullet ());
+
+	}
+
+	/// <summary>
+	/// Corrutina para destruir la bala después de un tiempo
+	/// </summary>
+	/// <returns>The bullet.</returns>
+	private IEnumerator DestroyBullet ()
+	{
+		while (true) {
+			yield return new WaitForSeconds (2f);
+			Destroy (this.gameObject);
+		}
+	}
+}
