@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CameraMove : MonoBehaviour
+public class CameraMoveController : MonoBehaviour
 {
 	public Transform playerTransform;
 

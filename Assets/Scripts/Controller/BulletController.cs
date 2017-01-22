@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Aznal;
 
-public class Bullet : MonoBehaviour
+public class BulletController : MonoBehaviour
 {
 
-	public float BulletSpeed = 10f;
+	private MPlayer player;
 	private bool InstantiateSpeed = true;
-	
-	// Update is called once per frame
-	void Update ()
+
+    void Start()
+    {
+        player = Aznal.Game.instancia.player;
+    }
+
+    // Update is called once per frame
+    void Update ()
 	{
-		float speed = BulletSpeed * Time.deltaTime;
+		float speed = player.shotSpeed * Time.deltaTime;
 		if (InstantiateSpeed) {
 			transform.Translate (new Vector3 (speed, 0, speed), GameObject.Find ("Gun").transform);
 			InstantiateSpeed = false;
@@ -32,4 +38,13 @@ public class Bullet : MonoBehaviour
 			Destroy (this.gameObject);
 		}
 	}
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag != "Player")
+        {
+            Destroy(this.gameObject);
+        }
+        
+    }
 }

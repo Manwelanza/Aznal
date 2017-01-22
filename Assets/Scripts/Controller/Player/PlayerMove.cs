@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
+using Aznal;
 
 public class PlayerMove : MonoBehaviour
 {
-	private float speed = 10f;
+	private MPlayer player;
 	private Rigidbody body;
 
 	// Use this for initialization
 	void Start ()
 	{
-		body = GetComponent<Rigidbody> ();
+        body = GetComponent<Rigidbody> ();
+        player = Aznal.Game.instancia.player;
 	}
 	
 	// Update is called once per frame
@@ -23,8 +25,8 @@ public class PlayerMove : MonoBehaviour
 	/// </summary>
 	private void MovePlayer ()
 	{
-		float XMovement = Input.GetAxis ("Horizontal") * speed;
-		float YMovement = Input.GetAxis ("Vertical") * speed;
+		float XMovement = Input.GetAxis ("Horizontal") * player.speed;
+		float YMovement = Input.GetAxis ("Vertical") * player.speed;
 
 		body.velocity = new Vector3 (XMovement, 0, YMovement);
 	}
@@ -50,4 +52,5 @@ public class PlayerMove : MonoBehaviour
 	{
 		return Mathf.Atan2 (a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
 	}
+
 }
