@@ -1,40 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Aznal
+﻿namespace Aznal
 {
-    public class MPlayer
-    {
-        #region "Public Variables"
-        public float speed { get; set; }
-        public float shotSpeed { get; set; }
-        public float damage { get; set; }
-        public float timeDodging { get; set; }
-        public bool dodging { get; set; }
-        //TODO: Añadir nuevas variables cuando sea necesario
-        #endregion
+	public class MPlayer
+	{
+		#region "Public Variables"
 
-        public MPlayer ()
-        {
-            speed = 10;
-            shotSpeed = 10;
-            damage = 5;
-            timeDodging = 60f;
-            dodging = false;
-        }
+		public float health { get; set; }
 
-        public void Dodge()
-        {
-            dodging = true;
-        }
+		public float speed { get; set; }
 
-        public void StopDodge()
-        {
-            dodging = false;
-        }
+		public float shotSpeed { get; set; }
 
-    }
+		public float damage { get; set; }
+
+		public float timeDodging { get; set; }
+
+		public bool dodging { get; set; }
+
+		public float shootDelay { get; set; }
+		//TODO: Añadir nuevas variables cuando sea necesario
+
+		#endregion
+
+		public MPlayer ()
+		{
+			health = 50;
+			speed = 10;
+			shotSpeed = 10;
+			shootDelay = 3;
+			damage = 5;
+			timeDodging = 60f;
+			dodging = false;
+		}
+
+		public void Dodge ()
+		{
+			dodging = true;
+		}
+
+		public void StopDodge ()
+		{
+			dodging = false;
+		}
+
+	}
 }
 
 

@@ -8,13 +8,13 @@ public class BulletController : MonoBehaviour
 	private MPlayer player;
 	private bool InstantiateSpeed = true;
 
-    void Start()
-    {
-        player = Aznal.Game.instancia.player;
-    }
+	void Start ()
+	{
+		player = Aznal.Game.instancia.player;
+	}
 
-    // Update is called once per frame
-    void Update ()
+	// Update is called once per frame
+	void Update ()
 	{
 		float speed = player.shotSpeed * Time.deltaTime;
 		if (InstantiateSpeed) {
@@ -39,12 +39,10 @@ public class BulletController : MonoBehaviour
 		}
 	}
 
-    void OnTriggerEnter(Collider collider)
-    {
-        if (collider.tag != "Player")
-        {
-            Destroy(this.gameObject);
-        }
-        
-    }
+	void OnTriggerEnter (Collider collider)
+	{
+		if (collider.tag != "Player") {
+			Destroy (this.gameObject);
+		}
+	}
 }
