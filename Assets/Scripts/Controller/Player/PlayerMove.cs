@@ -8,7 +8,9 @@ public class PlayerMove : MonoBehaviour
 	private Rigidbody body;
 	private ItemInterpreter interpreter;
 
+	// TODO: Borrar
 	public float auxDamage;
+	public float auxDelay;
 
 	// Use this for initialization
 	void Start ()
@@ -16,13 +18,19 @@ public class PlayerMove : MonoBehaviour
 		body = GetComponent<Rigidbody> ();
 		player = Game.instancia.player;
 		interpreter = new ItemInterpreter ();
+
+		// TODO: Borrar
 		auxDamage = Aznal.Game.instancia.player.damage;
+		auxDelay = Aznal.Game.instancia.player.shootDelay;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		// TODO: Borrar
 		auxDamage = Aznal.Game.instancia.player.damage;
+		auxDelay = Aznal.Game.instancia.player.shootDelay;
+
 		MovePlayer ();
 		LookAtMouse ();
 		Dodge ();

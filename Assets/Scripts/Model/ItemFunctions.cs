@@ -24,12 +24,10 @@ public class ItemFunctions : MonoBehaviour
 
 	public static void DoubleShoot ()
 	{
-		// Este no funciona
-		/*
 		GameObject gun = GameObject.Find ("Player/Gun");
-		Vector3 gunPosition = gun.transform.localPosition;
-		Instantiate (Resources.Load ("Assets/Prefabs/Gun", typeof(GameObject)),
-			new Vector3 (gunPosition.x, gunPosition.y, gunPosition.z), gun.transform.rotation);
-		*/
+		Vector3 gunPosition = gun.transform.position;
+		GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
+			                       new Vector3 (gunPosition.x + 1, gunPosition.y, gunPosition.z), gun.transform.rotation) as GameObject;
+		gunObject.transform.parent = GameObject.Find ("Player").transform;
 	}
 }
