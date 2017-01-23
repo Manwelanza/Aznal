@@ -14,7 +14,6 @@ public class StandardEnemy : MonoBehaviour
 		if (enemy.health <= 0) {
 			Destroy (gameObject);
 		}
-
 	}
 
 	void OnTriggerEnter (Collider collider)
