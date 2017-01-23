@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
     {
         if (instancia == null)
         {
+            Game.instancia = Game.CreateNormalGame();
             instancia = this;
             DontDestroyOnLoad(this);
         }
@@ -23,7 +24,7 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Game.instancia = Game.CreateNormalGame();
+        
     }
 	
 	// Update is called once per frame
