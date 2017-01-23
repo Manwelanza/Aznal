@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Aznal;
 
 public class ItemFunctions : MonoBehaviour
 {
@@ -12,6 +11,15 @@ public class ItemFunctions : MonoBehaviour
 	{
 		float increment = (Aznal.Game.instancia.player.damage * percent) / 100;
 		Aznal.Game.instancia.player.damage += increment;
+	}
+
+	public static void ShootDelayDown (float number)
+	{
+		if (Aznal.Game.instancia.player.shootDelay - number < 1) {
+			Aznal.Game.instancia.player.shootDelay = 1;
+		} else {
+			Aznal.Game.instancia.player.shootDelay -= number;
+		}
 	}
 
 	public static void DoubleShoot ()

@@ -7,9 +7,10 @@ public class ItemInterpreter : MonoBehaviour
 		switch (item) {
 		case "Ta Wapo TT":
 			ItemFunctions.DamageUp (1f);
+			ItemFunctions.ShootDelayDown (2f);
 			break;
 		case "Pa La Virgen":
-			// ItemFunctions.DamageUpPercent (50f);
+			ItemFunctions.DamageUpPercent (50f);
 			ItemFunctions.DoubleShoot ();
 			break;
 		}
