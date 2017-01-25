@@ -2,6 +2,8 @@
 
 public class ItemFunctions : MonoBehaviour
 {
+	#region Modificadores de daño
+
 	public static void DamageUp (float number)
 	{
 		Aznal.Game.instancia.player.damage += number;
@@ -13,6 +15,15 @@ public class ItemFunctions : MonoBehaviour
 		Aznal.Game.instancia.player.damage += increment;
 	}
 
+	public static void SetDamage (float number)
+	{
+		Aznal.Game.instancia.player.damage = number;
+	}
+
+	#endregion
+
+	#region Modificadores de shoot delay
+
 	public static void ShootDelayDown (float number)
 	{
 		if (Aznal.Game.instancia.player.shootDelay - number < 1) {
@@ -22,6 +33,10 @@ public class ItemFunctions : MonoBehaviour
 		}
 	}
 
+	#endregion
+
+	#region Otros modificadores
+
 	public static void DoubleShoot ()
 	{
 		GameObject gun = GameObject.Find ("Player/Gun");
@@ -30,4 +45,6 @@ public class ItemFunctions : MonoBehaviour
 			                       new Vector3 (gunPosition.x + 1, gunPosition.y, gunPosition.z), gun.transform.rotation) as GameObject;
 		gunObject.transform.parent = GameObject.Find ("Player").transform;
 	}
+
+	#endregion
 }

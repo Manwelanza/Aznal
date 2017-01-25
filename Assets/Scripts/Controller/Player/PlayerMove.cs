@@ -8,29 +8,17 @@ public class PlayerMove : MonoBehaviour
 	private Rigidbody body;
 	private ItemInterpreter interpreter;
 
-	// TODO: Borrar
-	public float auxDamage;
-	public float auxDelay;
-
 	// Use this for initialization
 	void Start ()
 	{
 		body = GetComponent<Rigidbody> ();
 		player = Game.instancia.player;
 		interpreter = new ItemInterpreter ();
-
-		// TODO: Borrar
-		auxDamage = Aznal.Game.instancia.player.damage;
-		auxDelay = Aznal.Game.instancia.player.shootDelay;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		// TODO: Borrar
-		auxDamage = Aznal.Game.instancia.player.damage;
-		auxDelay = Aznal.Game.instancia.player.shootDelay;
-
 		MovePlayer ();
 		LookAtMouse ();
 		Dodge ();
@@ -41,10 +29,13 @@ public class PlayerMove : MonoBehaviour
 	/// </summary>
 	private void MovePlayer ()
 	{
-		float XMovement = Input.GetAxis ("Horizontal") * player.speed;
-		float YMovement = Input.GetAxis ("Vertical") * player.speed;
 
-		body.velocity = new Vector3 (XMovement, 0, YMovement);
+		if (!player.dodging) {
+			float XMovement = Input.GetAxis ("Horizontal") * player.speed;
+			float YMovement = Input.GetAxis ("Vertical") * player.speed;
+
+			body.velocity = new Vector3 (XMovement, 0, YMovement);
+		}
 	}
 
 	/// <summary>
@@ -88,7 +79,6 @@ public class PlayerMove : MonoBehaviour
 			count += aux;
 			yield return 0;
 		}
-        
 		GetComponent<MeshRenderer> ().material.shader = shader;
 		GetComponent<MeshRenderer> ().material.color = color;
 		player.StopDodge ();

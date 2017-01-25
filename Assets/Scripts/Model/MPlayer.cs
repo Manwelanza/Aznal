@@ -17,6 +17,8 @@
 		public bool dodging { get; set; }
 
 		public float shootDelay { get; set; }
+
+		public float dodgeSpeed { get; set; }
 		//TODO: Añadir nuevas variables cuando sea necesario
 
 		#endregion
@@ -30,6 +32,7 @@
 			damage = 5;
 			timeDodging = 60f;
 			dodging = false;
+			dodgeSpeed = 15;
 		}
 
 		public void Dodge ()
