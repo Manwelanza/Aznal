@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
+using Aznal;
 
 public class ItemInterpreter : MonoBehaviour
 {
-	public void Execute (string item)
+
+	public static void Execute (string item)
 	{
 		switch (item) {
-		case "Ta Wapo TT":
-			ItemFunctions.DamageUp (1f);
-			break;
-		case "Pa La Virgen":
-			ItemFunctions.DamageUpPercent (50f);
-			ItemFunctions.DoubleShoot ();
-			ItemFunctions.ShootDelayDown (2f);
+		case "TestItem":
+			ItemFunctions.TripleShoot ();
+			ItemFunctions.AttributeSet (MPlayer.SHOOT_DELAY, 1);
 			break;
 		}
 	}

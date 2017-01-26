@@ -6,14 +6,12 @@ public class PlayerMove : MonoBehaviour
 {
 	private MPlayer player;
 	private Rigidbody body;
-	private ItemInterpreter interpreter;
 
 	// Use this for initialization
 	void Start ()
 	{
 		body = GetComponent<Rigidbody> ();
 		player = Game.instancia.player;
-		interpreter = new ItemInterpreter ();
 	}
 	
 	// Update is called once per frame
@@ -99,7 +97,7 @@ public class PlayerMove : MonoBehaviour
 	{
 		if (collider.tag == "Item") {
 			Destroy (collider.gameObject);
-			interpreter.Execute (collider.name);
+			ItemInterpreter.Execute (collider.name);
 		}
 	}
 

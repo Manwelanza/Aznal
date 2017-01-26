@@ -16,7 +16,7 @@ public class BulletController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		float speed = player.shotSpeed * Time.deltaTime;
+		float speed = player.shootSpeed * Time.deltaTime;
 		if (InstantiateSpeed) {
 			transform.Translate (new Vector3 (speed, 0, speed), GameObject.Find ("Gun").transform);
 			InstantiateSpeed = false;
@@ -41,7 +41,7 @@ public class BulletController : MonoBehaviour
 
 	void OnTriggerEnter (Collider collider)
 	{
-		if (collider.tag != "Player") {
+		if (collider.tag != "Player" && collider.tag != "PlayerBullet") {
 			Destroy (this.gameObject);
 		}
 	}
