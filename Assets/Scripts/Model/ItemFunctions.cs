@@ -174,19 +174,55 @@ public class ItemFunctions : MonoBehaviour
 
 	public static void TripleShoot ()
 	{
-		GameObject gun = GameObject.Find ("Player/Gun");
-		Vector3 gunPosition = gun.transform.position;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject [] guns = GameObject.FindGameObjectsWithTag("Gun");
+        if (guns.Length == 1)
+        {
+            Vector3 gunPosition = guns[0].transform.position;
 
-		GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-			                       new Vector3 (gunPosition.x + 0.5f, gunPosition.y, gunPosition.z + 0.5f), gun.transform.rotation) as GameObject;
-		GameObject gunObject2 = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-			                        new Vector3 (gunPosition.x - 0.5f, gunPosition.y, gunPosition.z - 0.5f), gun.transform.rotation) as GameObject;
+            GameObject gunObject = Instantiate(Resources.Load("Gun", typeof(GameObject)),
+                                       new Vector3(gunPosition.x + 0.5f, gunPosition.y, gunPosition.z + 0.5f), guns[0].transform.rotation) as GameObject;
+            GameObject gunObject2 = Instantiate(Resources.Load("Gun", typeof(GameObject)),
+                                        new Vector3(gunPosition.x - 0.5f, gunPosition.y, gunPosition.z - 0.5f), guns[0].transform.rotation) as GameObject;
 
-		gunObject.transform.parent = GameObject.Find ("Player").transform;
-		gunObject.transform.localPosition = new Vector3 (0.3f, 0, 0.8f);
-		gunObject2.transform.parent = GameObject.Find ("Player").transform;
-		gunObject2.transform.localPosition = new Vector3 (-0.3f, 0, 0.8f);
-	}
+            gunObject.transform.parent = player.transform;
+            gunObject.transform.localPosition = new Vector3(0.3f, 0, 0.8f);
+            gunObject2.transform.parent = player.transform;
+            gunObject2.transform.localPosition = new Vector3(-0.3f, 0, 0.8f);
+        }
+		else if (guns.Length == 2)
+        {
+            float verticalDistance = 0.15f;
+            // Primera fila de armas
+            guns[0].transform.localPosition = new Vector3 (0, -verticalDistance, 0.8f);
+            Vector3 gunPosition = guns[0].transform.position;
+
+            GameObject gunObject = Instantiate(Resources.Load("Gun", typeof(GameObject)),
+                                       new Vector3(gunPosition.x + 0.5f, gunPosition.y, gunPosition.z + 0.5f), guns[0].transform.rotation) as GameObject;
+            GameObject gunObject2 = Instantiate(Resources.Load("Gun", typeof(GameObject)),
+                                        new Vector3(gunPosition.x - 0.5f, gunPosition.y, gunPosition.z - 0.5f), guns[0].transform.rotation) as GameObject;
+
+            gunObject.transform.parent = player.transform;
+            gunObject.transform.localPosition = new Vector3(0.3f, -verticalDistance, 0.8f);
+            gunObject2.transform.parent = player.transform;
+            gunObject2.transform.localPosition = new Vector3(-0.3f, -verticalDistance, 0.8f);
+
+            // Segunda fila de armas
+            guns[1].transform.localPosition = new Vector3(0, verticalDistance, 0.8f);
+            Vector3 gunPosition2 = guns[1].transform.position;
+
+            GameObject gunObject3 = Instantiate(Resources.Load("Gun", typeof(GameObject)),
+                                       new Vector3(gunPosition2.x + 0.5f, gunPosition2.y, gunPosition2.z + 0.5f), guns[1].transform.rotation) as GameObject;
+            GameObject gunObject4 = Instantiate(Resources.Load("Gun", typeof(GameObject)),
+                                        new Vector3(gunPosition2.x - 0.5f, gunPosition2.y, gunPosition2.z - 0.5f), guns[1].transform.rotation) as GameObject;
+
+            gunObject3.transform.parent = player.transform;
+            gunObject3.transform.localPosition = new Vector3(0.3f, verticalDistance, 0.8f);
+            gunObject4.transform.parent = player.transform;
+            gunObject4.transform.localPosition = new Vector3(-0.3f, verticalDistance, 0.8f);
+        }
+    }
+	
 
 	#endregion
 }
