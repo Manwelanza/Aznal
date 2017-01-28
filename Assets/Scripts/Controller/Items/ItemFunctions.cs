@@ -8,57 +8,13 @@ public class ItemFunctions : MonoBehaviour
 
 	public static void AttributeUp (string attribute, float number)
 	{
-		switch (attribute) {
-		case MPlayer.DAMAGE:
-			Game.instancia.player.damage += number;
-			break;
-		case MPlayer.HEALTH:
-			Game.instancia.player.health += number;
-			break;
-		case MPlayer.SHOOT_DELAY:
-			Game.instancia.player.shootDelay += number;
-			break;
-		case MPlayer.SHOOT_SPEED:
-			Game.instancia.player.shootSpeed += number;
-			break;
-		case MPlayer.TIME_DODGING:
-			Game.instancia.player.timeDodging += number;
-			break;
-		case MPlayer.DODGE_SPEED:
-			Game.instancia.player.dodgeSpeed += number;
-			break;
-		default:
-			System.Console.Error.WriteLine ("¡Valor de atributo erroneo!");
-			break;
-		}
-	}
+        Game.instancia.player.ModifyAttribute(attribute, number);
+    }
 
 	public static void AttributeDown (string attribute, float number)
 	{
-		switch (attribute) {
-		case MPlayer.DAMAGE:
-			Game.instancia.player.damage -= number;
-			break;
-		case MPlayer.HEALTH:
-			Game.instancia.player.health -= number;
-			break;
-		case MPlayer.SHOOT_DELAY:
-			Game.instancia.player.shootDelay -= number;
-			break;
-		case MPlayer.SHOOT_SPEED:
-			Game.instancia.player.shootSpeed -= number;
-			break;
-		case MPlayer.TIME_DODGING:
-			Game.instancia.player.timeDodging -= number;
-			break;
-		case MPlayer.DODGE_SPEED:
-			Game.instancia.player.dodgeSpeed -= number;
-			break;
-		default:
-			System.Console.Error.WriteLine ("¡Valor de atributo erroneo!");
-			break;
-		}
-	}
+        Game.instancia.player.ModifyAttribute(attribute, -number);
+    }
 
 	public static void AttributePercentUp (string attribute, float percent)
 	{

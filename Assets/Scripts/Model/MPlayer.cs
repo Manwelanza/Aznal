@@ -47,7 +47,35 @@
 			dodgeSpeed = 15;
 		}
 
-		public void Dodge ()
+        public void ModifyAttribute (string attribute, float number)
+        {
+            switch (attribute)
+            {
+                case MPlayer.DAMAGE:
+                    damage += number;
+                    break;
+                case MPlayer.HEALTH:
+                    health += number;
+                    break;
+                case MPlayer.SHOOT_DELAY:
+                    shootDelay += number;
+                    break;
+                case MPlayer.SHOOT_SPEED:
+                    shootSpeed += number;
+                    break;
+                case MPlayer.TIME_DODGING:
+                    timeDodging += number;
+                    break;
+                case MPlayer.DODGE_SPEED:
+                    dodgeSpeed += number;
+                    break;
+                default:
+                    System.Console.Error.WriteLine("¡Valor de atributo erroneo!");
+                    break;
+            }
+        }
+
+        public void Dodge ()
 		{
 			dodging = true;
 		}
