@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Aznal;
+using System;
 
 public class ItemFunctions : MonoBehaviour
 {
@@ -160,96 +161,68 @@ public class ItemFunctions : MonoBehaviour
 
 	#region "Modificadores de disparo"
 
-	public static void DoubleShot ()
+	// Angulos de disparo máximo y mínimo (Cambiarlos a placer)
+	private const float MAX_SHOOT_ANGLE = 30;
+
+	public static void SetNumberOfGuns (int numero)
+	{
+		DelteGuns ();
+		for (int i = 0; i < numero; i++) {
+			AddGun ();
+		}
+		GunAngleCorrection ();
+	}
+
+	private static void AddGun ()
 	{
 		GameObject player = GameObject.FindGameObjectWithTag ("Player");
+		GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+		gunObject.transform.parent = GameObject.Find ("Player/Guns").transform;
+		gunObject.transform.localPosition = Vector3.zero;
+		gunObject.transform.name = "Gun";
+	}
+
+
+	// TODO: Arreglar esto que por alguna razón nunca asigna el valor de -30 bien, todo mu raro
+	private static void GunAngleCorrection ()
+	{
 		GameObject[] guns = GameObject.FindGameObjectsWithTag ("Gun");
-		if (guns.Length == 1) {
-			GameObject.Find ("Player/Gun").transform.localPosition = new Vector3 (-0.3f, 0, 0.8f);
+		float numberOfGuns = guns.Length;
+		if (numberOfGuns == 1) {
+			guns [0].transform.localRotation = Quaternion.Euler (0, 0, 0);
+		} else {
+			float actual = -MAX_SHOOT_ANGLE;
+			float incremento = (MAX_SHOOT_ANGLE * 2) / (numberOfGuns - 1);
 
-			GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)), Vector3.zero, player.transform.rotation) as GameObject;
-		
-			gunObject.transform.parent = GameObject.Find ("Player").transform;
-			gunObject.transform.localPosition = new Vector3 (0.3f, 0, 0.8f);
-		} else if (guns.Length == 3) {
-			float verticalDistance = 0.15f;
-			// Primera fila de armas
-			guns [0].transform.localPosition = new Vector3 (0, -verticalDistance, 0.8f);
-			Vector3 gunPosition = guns [0].transform.position;
-
-			GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-				                       new Vector3 (gunPosition.x + 0.5f, gunPosition.y, gunPosition.z + 0.5f), guns [0].transform.rotation) as GameObject;
-			GameObject gunObject2 = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-				                        new Vector3 (gunPosition.x - 0.5f, gunPosition.y, gunPosition.z - 0.5f), guns [0].transform.rotation) as GameObject;
-
-			gunObject.transform.parent = player.transform;
-			gunObject.transform.localPosition = new Vector3 (0.3f, -verticalDistance, 0.8f);
-			gunObject2.transform.parent = player.transform;
-			gunObject2.transform.localPosition = new Vector3 (-0.3f, -verticalDistance, 0.8f);
-
-			// Segunda fila de armas
-			guns [1].transform.localPosition = new Vector3 (0, verticalDistance, 0.8f);
-			Vector3 gunPosition2 = guns [1].transform.position;
-
-			GameObject gunObject3 = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-				                        new Vector3 (gunPosition2.x + 0.5f, gunPosition2.y, gunPosition2.z + 0.5f), guns [1].transform.rotation) as GameObject;
-			GameObject gunObject4 = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-				                        new Vector3 (gunPosition2.x - 0.5f, gunPosition2.y, gunPosition2.z - 0.5f), guns [1].transform.rotation) as GameObject;
-
-			gunObject3.transform.parent = player.transform;
-			gunObject3.transform.localPosition = new Vector3 (0.3f, verticalDistance, 0.8f);
-			gunObject4.transform.parent = player.transform;
-			gunObject4.transform.localPosition = new Vector3 (-0.3f, verticalDistance, 0.8f);
+			for (int i = 0; i < guns.Length; i++) {
+				guns [i].transform.localRotation = Quaternion.Euler (0, actual, 0);
+				actual += incremento;
+			}
 		}
+	}
 
+	private static void DelteGuns ()
+	{
+		GameObject[] guns = GameObject.FindGameObjectsWithTag ("Gun");
+		foreach (GameObject gun in guns) {
+			Destroy (gun.gameObject);
+		}
+	}
+
+	private static int GetNumberOfGuns ()
+	{
+		return GameObject.FindGameObjectsWithTag ("Gun").Length;
+	}
+
+	public static void DoubleShot ()
+	{
+
+		SetNumberOfGuns (GetNumberOfGuns () * 2);
 	}
 
 	public static void TripleShoot ()
 	{
-		GameObject player = GameObject.FindGameObjectWithTag ("Player");
-		GameObject[] guns = GameObject.FindGameObjectsWithTag ("Gun");
-		if (guns.Length == 1) {
-			Vector3 gunPosition = guns [0].transform.position;
-
-			GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-				                       new Vector3 (gunPosition.x + 0.5f, gunPosition.y, gunPosition.z + 0.5f), guns [0].transform.rotation) as GameObject;
-			GameObject gunObject2 = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-				                        new Vector3 (gunPosition.x - 0.5f, gunPosition.y, gunPosition.z - 0.5f), guns [0].transform.rotation) as GameObject;
-
-			gunObject.transform.parent = player.transform;
-			gunObject.transform.localPosition = new Vector3 (0.3f, 0, 0.8f);
-			gunObject2.transform.parent = player.transform;
-			gunObject2.transform.localPosition = new Vector3 (-0.3f, 0, 0.8f);
-		} else if (guns.Length == 2) {
-			float verticalDistance = 0.15f;
-			// Primera fila de armas
-			guns [0].transform.localPosition = new Vector3 (0, -verticalDistance, 0.8f);
-			Vector3 gunPosition = guns [0].transform.position;
-
-			GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-				                       new Vector3 (gunPosition.x + 0.5f, gunPosition.y, gunPosition.z + 0.5f), guns [0].transform.rotation) as GameObject;
-			GameObject gunObject2 = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-				                        new Vector3 (gunPosition.x - 0.5f, gunPosition.y, gunPosition.z - 0.5f), guns [0].transform.rotation) as GameObject;
-
-			gunObject.transform.parent = player.transform;
-			gunObject.transform.localPosition = new Vector3 (0.3f, -verticalDistance, 0.8f);
-			gunObject2.transform.parent = player.transform;
-			gunObject2.transform.localPosition = new Vector3 (-0.3f, -verticalDistance, 0.8f);
-
-			// Segunda fila de armas
-			guns [1].transform.localPosition = new Vector3 (0, verticalDistance, 0.8f);
-			Vector3 gunPosition2 = guns [1].transform.position;
-
-			GameObject gunObject3 = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-				                        new Vector3 (gunPosition2.x + 0.5f, gunPosition2.y, gunPosition2.z + 0.5f), guns [1].transform.rotation) as GameObject;
-			GameObject gunObject4 = Instantiate (Resources.Load ("Gun", typeof(GameObject)),
-				                        new Vector3 (gunPosition2.x - 0.5f, gunPosition2.y, gunPosition2.z - 0.5f), guns [1].transform.rotation) as GameObject;
-
-			gunObject3.transform.parent = player.transform;
-			gunObject3.transform.localPosition = new Vector3 (0.3f, verticalDistance, 0.8f);
-			gunObject4.transform.parent = player.transform;
-			gunObject4.transform.localPosition = new Vector3 (-0.3f, verticalDistance, 0.8f);
-		}
+		SetNumberOfGuns (GetNumberOfGuns () * 3);
 	}
 
 

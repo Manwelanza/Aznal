@@ -23,6 +23,7 @@ public class BulletController : MonoBehaviour
 		} else {
 			transform.Translate (new Vector3 (speed, 0, speed), transform);
 		}
+		transform.Translate (new Vector3 (speed, 0, speed), transform);
 		StartCoroutine (DestroyBullet ());
 
 	}
