@@ -8,13 +8,13 @@ public class ItemFunctions : MonoBehaviour
 
 	public static void AttributeUp (string attribute, float number)
 	{
-        Game.instancia.player.ModifyAttribute(attribute, number);
-    }
+		Game.instancia.player.ModifyAttribute (attribute, number);
+	}
 
 	public static void AttributeDown (string attribute, float number)
 	{
-        Game.instancia.player.ModifyAttribute(attribute, -number);
-    }
+		Game.instancia.player.ModifyAttribute (attribute, -number);
+	}
 
 	public static void AttributePercentUp (string attribute, float percent)
 	{
@@ -118,7 +118,7 @@ public class ItemFunctions : MonoBehaviour
 	#region "Modificadores de disparo"
 
 	// Angulos de disparo máximo y mínimo (Cambiarlos a placer)
-	private const float MAX_SHOOT_ANGLE = 30;
+	private const float MAX_SHOOT_ANGLE = 20;
 
 	public static void SetNumberOfGuns (int numero)
 	{
@@ -131,7 +131,6 @@ public class ItemFunctions : MonoBehaviour
 
 	private static void AddGun ()
 	{
-		GameObject player = GameObject.FindGameObjectWithTag ("Player");
 		GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
 		gunObject.transform.parent = GameObject.Find ("Player/Guns").transform;
 		gunObject.transform.localPosition = Vector3.zero;
@@ -142,6 +141,7 @@ public class ItemFunctions : MonoBehaviour
 	// TODO: Arreglar esto que por alguna razón nunca asigna el valor de -30 bien, todo mu raro
 	private static void GunAngleCorrection ()
 	{
+		
 		GameObject[] guns = GameObject.FindGameObjectsWithTag ("Gun");
 		float numberOfGuns = guns.Length;
 		if (numberOfGuns == 1) {
@@ -161,6 +161,7 @@ public class ItemFunctions : MonoBehaviour
 	{
 		GameObject[] guns = GameObject.FindGameObjectsWithTag ("Gun");
 		foreach (GameObject gun in guns) {
+			gun.transform.tag = "Untagged";
 			Destroy (gun.gameObject);
 		}
 	}
@@ -172,7 +173,6 @@ public class ItemFunctions : MonoBehaviour
 
 	public static void DoubleShot ()
 	{
-
 		SetNumberOfGuns (GetNumberOfGuns () * 2);
 	}
 
