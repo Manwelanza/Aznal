@@ -4,9 +4,9 @@ using System;
 
 public class ItemFunctions : MonoBehaviour
 {
-	#region "Modificador de atributo"
+    #region "Attribute modifiers"
 
-	public static void AttributeUp (string attribute, float number)
+    public static void AttributeUp (string attribute, float number)
 	{
 		Game.instancia.player.ModifyAttribute (attribute, number);
 	}
@@ -18,111 +18,30 @@ public class ItemFunctions : MonoBehaviour
 
 	public static void AttributePercentUp (string attribute, float percent)
 	{
-		float aux;
-		switch (attribute) {
-		case MPlayer.DAMAGE:
-			aux = (Game.instancia.player.damage * percent) / 100;
-			Game.instancia.player.damage += aux;
-			break;
-		case MPlayer.HEALTH:
-			aux = (Game.instancia.player.health * percent) / 100;
-			Game.instancia.player.health += aux;
-			break;
-		case MPlayer.SHOOT_DELAY:
-			aux = (Game.instancia.player.shootDelay * percent) / 100;
-			Game.instancia.player.shootDelay += aux;
-			break;
-		case MPlayer.SHOOT_SPEED:
-			aux = (Game.instancia.player.shootSpeed * percent) / 100;
-			Game.instancia.player.shootSpeed += aux;
-			break;
-		case MPlayer.TIME_DODGING:
-			aux = (Game.instancia.player.timeDodging * percent) / 100;
-			Game.instancia.player.timeDodging += aux;
-			break;
-		case MPlayer.DODGE_SPEED:
-			aux = (Game.instancia.player.dodgeSpeed * percent) / 100;
-			Game.instancia.player.dodgeSpeed += aux;
-			;
-			break;
-		default:
-			System.Console.Error.WriteLine ("¡Valor de atributo erroneo!");
-			break;
-		}
-	}
+        Game.instancia.player.ModifyPercent(attribute, percent);
+
+    }
 
 	public static void AttributePercentDown (string attribute, float percent)
 	{
-		float aux;
-		switch (attribute) {
-		case MPlayer.DAMAGE:
-			aux = (Game.instancia.player.damage * percent) / 100;
-			Game.instancia.player.damage -= aux;
-			break;
-		case MPlayer.HEALTH:
-			aux = (Game.instancia.player.health * percent) / 100;
-			Game.instancia.player.health -= aux;
-			break;
-		case MPlayer.SHOOT_DELAY:
-			aux = (Game.instancia.player.shootDelay * percent) / 100;
-			Game.instancia.player.shootDelay -= aux;
-			break;
-		case MPlayer.SHOOT_SPEED:
-			aux = (Game.instancia.player.shootSpeed * percent) / 100;
-			Game.instancia.player.shootSpeed -= aux;
-			break;
-		case MPlayer.TIME_DODGING:
-			aux = (Game.instancia.player.timeDodging * percent) / 100;
-			Game.instancia.player.timeDodging -= aux;
-			break;
-		case MPlayer.DODGE_SPEED:
-			aux = (Game.instancia.player.dodgeSpeed * percent) / 100;
-			Game.instancia.player.dodgeSpeed -= aux;
-			;
-			break;
-		default:
-			System.Console.Error.WriteLine ("¡Valor de atributo erroneo!");
-			break;
-		}
-	}
+        Game.instancia.player.ModifyPercent(attribute, -percent);
+    }
 
 	public static void AttributeSet (string attribute, float number)
 	{
-		switch (attribute) {
-		case MPlayer.DAMAGE:
-			Game.instancia.player.damage = number;
-			break;
-		case MPlayer.HEALTH:
-			Game.instancia.player.health = number;
-			break;
-		case MPlayer.SHOOT_DELAY:
-			Game.instancia.player.shootDelay = number;
-			break;
-		case MPlayer.SHOOT_SPEED:
-			Game.instancia.player.shootSpeed = number;
-			break;
-		case MPlayer.TIME_DODGING:
-			Game.instancia.player.timeDodging = number;
-			break;
-		case MPlayer.DODGE_SPEED:
-			Game.instancia.player.dodgeSpeed = number;
-			break;
-		default:
-			System.Console.Error.WriteLine ("¡Valor de atributo erroneo!");
-			break;
-		}
+        Game.instancia.player.Set(attribute, number);
 	}
 
 	#endregion
 
-	#region "Modificadores de disparo"
+	#region "Shot modifiers"
 
 	// Angulos de disparo máximo y mínimo (Cambiarlos a placer)
-	private const float MAX_SHOOT_ANGLE = 20;
+	private const float MAX_SHOOT_ANGLE = 5;
 
 	public static void SetNumberOfGuns (int numero)
 	{
-		DelteGuns ();
+        DelteGuns ();
 		for (int i = 0; i < numero; i++) {
 			AddGun ();
 		}
@@ -131,8 +50,8 @@ public class ItemFunctions : MonoBehaviour
 
 	private static void AddGun ()
 	{
-		GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
-		gunObject.transform.parent = GameObject.Find ("Player/Guns").transform;
+        GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+        gunObject.transform.parent = GameObject.Find ("Player/Guns").transform;
 		gunObject.transform.localPosition = Vector3.zero;
 		gunObject.transform.name = "Gun";
 	}

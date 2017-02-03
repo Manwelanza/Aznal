@@ -47,27 +47,86 @@
 			dodgeSpeed = 15;
 		}
 
+        #region "Attribute modifiers"
         public void ModifyAttribute (string attribute, float number)
         {
             switch (attribute)
             {
-                case MPlayer.DAMAGE:
+                case DAMAGE:
                     damage += number;
                     break;
-                case MPlayer.HEALTH:
+                case HEALTH:
                     health += number;
                     break;
-                case MPlayer.SHOOT_DELAY:
+                case SHOOT_DELAY:
                     shootDelay += number;
                     break;
-                case MPlayer.SHOOT_SPEED:
+                case SHOOT_SPEED:
                     shootSpeed += number;
                     break;
-                case MPlayer.TIME_DODGING:
+                case TIME_DODGING:
                     timeDodging += number;
                     break;
-                case MPlayer.DODGE_SPEED:
+                case DODGE_SPEED:
                     dodgeSpeed += number;
+                    break;
+                default:
+                    System.Console.Error.WriteLine("¡Valor de atributo erroneo!");
+                    break;
+            }
+        }
+
+        public void ModifyPercent (string attribute, float percent)
+        {
+            float aux = System.Math.Abs(percent) / 100;
+            percent /= System.Math.Abs(percent);
+            switch (attribute)
+            {
+                case DAMAGE:
+                    damage += aux * damage * percent;
+                    break;
+                case HEALTH:
+                    health += aux * health * percent;
+                    break;
+                case SHOOT_DELAY:
+                    shootDelay += aux * shootDelay * percent;
+                    break;
+                case SHOOT_SPEED:
+                    shootSpeed += aux * shootSpeed * percent;
+                    break;
+                case TIME_DODGING:
+                    timeDodging += aux * timeDodging * percent;
+                    break;
+                case DODGE_SPEED:
+                    dodgeSpeed += aux * dodgeSpeed * percent;
+                    break;
+                default:
+                    System.Console.Error.WriteLine("¡Valor de atributo erroneo!");
+                    break;
+            }
+        }
+
+        public void Set (string attribute, float number)
+        {
+            switch (attribute)
+            {
+                case DAMAGE:
+                    damage = number;
+                    break;
+                case HEALTH:
+                    health = number;
+                    break;
+                case SHOOT_DELAY:
+                    shootDelay = number;
+                    break;
+                case SHOOT_SPEED:
+                    shootSpeed = number;
+                    break;
+                case TIME_DODGING:
+                    timeDodging = number;
+                    break;
+                case DODGE_SPEED:
+                    dodgeSpeed = number;
                     break;
                 default:
                     System.Console.Error.WriteLine("¡Valor de atributo erroneo!");
@@ -84,8 +143,8 @@
 		{
 			dodging = false;
 		}
-
-	}
+        #endregion
+    }
 }
 
 
