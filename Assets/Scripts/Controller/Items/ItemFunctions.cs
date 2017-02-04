@@ -4,9 +4,9 @@ using System;
 
 public class ItemFunctions : MonoBehaviour
 {
-    #region "Attribute modifiers"
+	#region "Attribute modifiers"
 
-    public static void AttributeUp (string attribute, float number)
+	public static void AttributeUp (string attribute, float number)
 	{
 		Game.instancia.player.ModifyAttribute (attribute, number);
 	}
@@ -18,31 +18,35 @@ public class ItemFunctions : MonoBehaviour
 
 	public static void AttributePercentUp (string attribute, float percent)
 	{
-        Game.instancia.player.ModifyPercent(attribute, percent);
+		Game.instancia.player.ModifyPercent (attribute, percent);
 
-    }
+	}
 
 	public static void AttributePercentDown (string attribute, float percent)
 	{
-        Game.instancia.player.ModifyPercent(attribute, -percent);
-    }
+		Game.instancia.player.ModifyPercent (attribute, -percent);
+	}
 
 	public static void AttributeSet (string attribute, float number)
 	{
-        Game.instancia.player.Set(attribute, number);
+		Game.instancia.player.Set (attribute, number);
 	}
 
 	#endregion
 
 	#region "Shot modifiers"
 
-	// Angulos de disparo máximo y mínimo (Cambiarlos a placer)
+	/// <summary>
+	/// Máximo angulo que se utilizará para el disparo, si este angulo es más grande el disparo será más disperso.
+	/// Si es más pequeño el disparo será más concentrado.
+	/// TODO IDEA: Poner esta dispersión como una variable del personaje para modificar el disparo.
+	/// </summary>
 	private const float MAX_SHOOT_ANGLE = 5;
 
 	public static void SetNumberOfGuns (int numero)
 	{
-        Shoot shoot = GameObject.FindGameObjectWithTag("Gun").GetComponent<Shoot>();
-        DelteGuns ();
+		Shoot shoot = GameObject.FindGameObjectWithTag ("Gun").GetComponent<Shoot> ();
+		DelteGuns ();
 		for (int i = 0; i < numero; i++) {
 			AddGun (shoot);
 		}
@@ -51,17 +55,15 @@ public class ItemFunctions : MonoBehaviour
 
 	private static void AddGun (Shoot shoot)
 	{
-        GameObject gunObject = Instantiate (new GameObject(), Vector3.zero, Quaternion.identity) as GameObject;
-        gunObject.AddComponent(shoot.GetType());
-        gunObject.GetComponent<Shoot>().balaObject = shoot.balaObject;
-        gunObject.tag = "Gun";
-        gunObject.transform.parent = GameObject.Find ("Player/Guns").transform;
+		GameObject gunObject = Instantiate (new GameObject (), Vector3.zero, Quaternion.identity) as GameObject;
+		gunObject.AddComponent (shoot.GetType ());
+		gunObject.GetComponent<Shoot> ().balaObject = shoot.balaObject;
+		gunObject.tag = "Gun";
+		gunObject.transform.parent = GameObject.Find ("Player/Guns").transform;
 		gunObject.transform.localPosition = Vector3.zero;
 		gunObject.transform.name = "Gun";
 	}
 
-
-	// TODO: Arreglar esto que por alguna razón nunca asigna el valor de -30 bien, todo mu raro
 	private static void GunAngleCorrection ()
 	{
 		

@@ -6,21 +6,10 @@ abstract public class Shoot : MonoBehaviour
 	public GameObject balaObject;
 	protected bool canShoot;
 
-	void Start ()
+	protected IEnumerator shoot ()
 	{
-		
+		canShoot = false;
+		yield return new WaitForSeconds (Aznal.Game.instancia.player.shootDelay * 0.1f);
+		canShoot = true;
 	}
-
-	// Update is called once per frame
-	void Update ()
-	{
-		
-	}
-
-    protected IEnumerator shoot()
-    {
-        canShoot = false;
-        yield return new WaitForSeconds(Aznal.Game.instancia.player.shootDelay * 0.1f);
-        canShoot = true;
-    }
 }
