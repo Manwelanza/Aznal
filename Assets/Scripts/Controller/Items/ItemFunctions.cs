@@ -41,16 +41,20 @@ public class ItemFunctions : MonoBehaviour
 
 	public static void SetNumberOfGuns (int numero)
 	{
+        Shoot shoot = GameObject.FindGameObjectWithTag("Gun").GetComponent<Shoot>();
         DelteGuns ();
 		for (int i = 0; i < numero; i++) {
-			AddGun ();
+			AddGun (shoot);
 		}
 		GunAngleCorrection ();
 	}
 
-	private static void AddGun ()
+	private static void AddGun (Shoot shoot)
 	{
-        GameObject gunObject = Instantiate (Resources.Load ("Gun", typeof(GameObject)), Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject gunObject = Instantiate (new GameObject(), Vector3.zero, Quaternion.identity) as GameObject;
+        gunObject.AddComponent(shoot.GetType());
+        gunObject.GetComponent<Shoot>().balaObject = shoot.balaObject;
+        gunObject.tag = "Gun";
         gunObject.transform.parent = GameObject.Find ("Player/Guns").transform;
 		gunObject.transform.localPosition = Vector3.zero;
 		gunObject.transform.name = "Gun";
